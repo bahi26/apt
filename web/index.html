@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+        var array;
+        function recommend(){
+
+            var user_name=  document.getElementById("user").value.trim();
+            if(user_name!=null) {
+                $.getJSON("/Recommend?user=" + user_name, function (data) {
+
+                    //iterating over each value that the servlet returns
+                    array = data;
+                    for (i = 0; i < array.length; i++) {
+                            $temp= $('<a class="results" href=" '+array[i]+'" target="_balnk"/>');
+                            $temp.text(array[i]).appendTo('div');
+                    }
+                });
+            }
+        }
+
+        $(document).ready(function() {
+
+
+
+            $("input#tags").autocomplete({
+                width: 300,
+                max: 10,
+                delay: 100,
+                minLength: 1,
+                autoFocus: true,
+                cacheLength: 1,
+                scroll: true,
+                highlight: false,
+                source: function(request, response) {
+                    $.ajax({
+                        url: "/JSON/AjaxRequest",
+                        dataType: "json",
+                        data: request,
+                        success: function( data, textStatus, jqXHR) {
+                            console.log( data);
+                            var items = data;
+                            response(items);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown){
+                            console.log( textStatus);
+                        }
+                    });
+                }
+
+            });
+        });
+
+    </script>
+</head>
+<body background="background.jpg" >
+<form action="Searching"  method="GET">
+
+    <center><br><br><br><img src="images.png" alt="Search image" style="width:500px;height:200px;"> <br> <br>
+        <input type="text" name="user" id="user" style="width:500px"/>  <input type="button" id="username" value="signin" onclick="recommend()"/><br>
+        <input type="text" name="query" id="tags" style="width:500px"/>
+        <input type="submit" name="search" value="Search"/>
+        <input type="submit" name="search" value="Image"/>
+        <input type="submit" name="search" value="Video"/>
+    </center>
+
+</form>
+
+<div>
+
+
+
+
+</div>
+
+</body>
+</html>

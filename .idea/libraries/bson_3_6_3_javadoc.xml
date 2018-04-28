@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="bson-3.6.3-javadoc">
+    <CLASSES>
+      <root url="jar://C:/mongo/bson-3.6.3-javadoc.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="jar://C:/mongo/bson-3.6.3-javadoc.jar!/" recursive="false" />
+  </library>
+</component>
